@@ -44,21 +44,23 @@ echo "--- 构建并启动容器 ---"
 docker compose up -d --build
 
 # 6) 等待后端就绪并健康检查
+#    注意：直接探 backend 容器真实 /health 接口，不要探 8080/health —— 后者会被
+#    nginx 的 try_files 静态兜底返回首页 HTML（永远 200），造成“假健康”。
 echo "--- 等待服务就绪 ---"
-for i in $(seq 1 10); do
-  if curl -sf http://127.0.0.1:8080/health >/dev/null 2>&1; then
+for i in $(seq 1 15); do
+  if docker compose exec -T backend python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')" >/dev/null 2>&1; then
     break
   fi
   sleep 2
 done
 
-if curl -sf http://127.0.0.1:8080/health >/dev/null 2>&1; then
-  echo "✅ 部署成功！"
+if docker compose exec -T backend python -c "import urllib.request,sys; sys.exit(0 if b'\"ok\":true' in urllib.request.urlopen('http://127.0.0.1:8000/health').read() else 1)" >/dev/null 2>&1; then
+  echo "✅ 部署成功！后端 /health 正常，站点可访问："
   echo "   访问： http://<服务器IP>:8080"
   echo "   查看日志： docker compose logs -f"
   echo "   更新： bash deploy.sh   （会自动 git pull 后重建）"
 else
-  echo "⚠ 健康检查未通过，请排查："
+  echo "⚠ 后端健康检查未通过，请排查："
   echo "   docker compose ps"
   echo "   docker compose logs backend"
   exit 1
