@@ -1,0 +1,9 @@
+# Docker 构建上下文忽略项（不打包进镜像）
+.git
+.gitignore
+.workbuddy
+node_modules
+*.log
+debug_*.png
+.DS_Store
+Thumbs.db

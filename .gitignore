@@ -1,0 +1,11 @@
+# 开发/构建产物
+.workbuddy/
+node_modules/
+*.log
+
+# 调试截图
+debug_*.png
+
+# 系统文件
+.DS_Store
+Thumbs.db

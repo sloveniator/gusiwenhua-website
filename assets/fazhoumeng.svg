@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 112" width="400" height="112">
+<defs>
+<radialGradient id="fzbg" cx="42%" cy="36%" r="80%"><stop offset="0%" stop-color="#1d4566"/><stop offset="55%" stop-color="#10263e"/><stop offset="100%" stop-color="#070d18"/></radialGradient>
+<linearGradient id="fzgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f5df8a"/><stop offset="55%" stop-color="#d4af37"/><stop offset="100%" stop-color="#a8842a"/></linearGradient>
+<linearGradient id="fzsail" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5eead4"/><stop offset="100%" stop-color="#0d9488"/></linearGradient>
+<linearGradient id="fztitle" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f5df8a"/></linearGradient>
+</defs>
+<!-- 徽章 -->
+<g transform="translate(36,56)">
+<circle r="32" fill="url(#fzbg)"/>
+<circle r="31" fill="none" stroke="url(#fzgold)" stroke-width="2.2"/>
+<circle r="27.5" fill="none" stroke="#2dd4bf" stroke-width="0.8" opacity="0.5"/>
+<g transform="translate(3,-15)" fill="#f5df8a" opacity="0.95">
+<path d="M0,-6 L1.6,-1.6 L6,0 L1.6,1.6 L0,6 L-1.6,1.6 L-6,0 L-1.6,-1.6 Z"/>
+</g>
+<g transform="translate(-11,2)">
+<path d="M-9,6 L12,6 L7,12 L-6,12 Z" fill="url(#fzgold)" stroke="#a8842a" stroke-width="0.6"/>
+<path d="M-9,6 L12,6 L10,8 L-7,8 Z" fill="#f5df8a" opacity="0.55"/>
+<line x1="2" y1="-12" x2="2" y2="6" stroke="#c9a227" stroke-width="1.4"/>
+<path d="M2,-12 L2,4 L-6,4 Z" fill="url(#fzsail)" opacity="0.95"/>
+<path d="M2,-9 L2,4 L9,4 Z" fill="url(#fzsail)" opacity="0.7"/>
+<line x1="-4" y1="-2" x2="0.5" y2="2.5" stroke="#0b1626" stroke-width="1" opacity="0.7"/>
+</g>
+<g stroke="#2dd4bf" stroke-width="1.4" fill="none" opacity="0.8" stroke-linecap="round">
+<path d="M-20,14 Q-15,11 -10,14 Q-5,17 0,14 Q5,11 10,14 Q15,17 20,14"/>
+<path d="M-16,18 Q-12,16 -8,18 Q-4,20 0,18 Q4,16 8,18 Q12,20 16,18" opacity="0.55"/>
+</g>
+</g>
+<!-- 文字 -->
+<text x="84" y="44" font-family="'Noto Serif SC','Songti SC','SimSun','STSong',serif" font-size="26" font-weight="700" letter-spacing="6" fill="url(#fztitle)">法舟盟</text>
+<text x="86" y="80" font-family="'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif" font-size="18.5" font-weight="500" letter-spacing="3" fill="#2dd4bf">认知破局 · 深度决策</text>
+<circle cx="82" cy="24" r="1.8" fill="#d4af37" opacity="0.8"/>
+</svg>

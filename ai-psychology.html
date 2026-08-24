@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>心理咨询管理 · AI 体验 | 古四信息咨询工作室</title>
+  <meta name="description" content="AI 心理咨询管理：7 题情绪自测定位压力水平、4-4 节律呼吸放松引导、情绪日记关键词分析，为心理健康提供智能支持。">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body data-page="psychology">
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.svg" alt="古四信息咨询工作室">
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="services.html" class="nav-link">服务介绍</a>
+        <a href="works.html" class="nav-link">精选作品</a>
+        <a href="ai.html" class="nav-link active">AI 体验</a>
+        <a href="about.html" class="nav-link">关于我们</a>
+        <a href="contact.html" class="nav-link">联系我们</a>
+      </nav>
+      <div class="header-cta">
+        <a href="contact.html" class="btn btn-primary">立即咨询</a>
+        <button class="menu-toggle" aria-label="菜单">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="ai-hero">
+      <div class="container">
+        <span class="ai-badge reveal">心理咨询管理 · AI 智能支持</span>
+        <h1 class="reveal">心理咨询管理</h1>
+        <p class="reveal">科学自测、即时放松、持续觉察——用一套轻量工具管理你的情绪与压力，让心理状态被看见、被照顾。</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 12px;">
+      <div class="container">
+
+        <!-- 情绪自测 -->
+        <div class="ai-tool reveal" id="quizBox">
+          <div class="ai-tool-head">
+            <span class="ai-tool-num">一</span>
+            <h3>情绪状态自测</h3>
+          </div>
+          <p class="ai-tool-sub">7 道题，约 1 分钟。基于广泛用于临床筛查的焦虑量表思路简化改编，帮助你快速定位当前压力水平。</p>
+
+          <div class="quiz-progress"><i id="quizProgress" style="width:0%"></i></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+            <span class="ai-result-badge" id="quizTitle" style="padding:4px 14px;border:1px solid var(--color-border);border-radius:999px;font-size:0.8rem;color:var(--color-text-muted)"></span>
+            <span style="font-size:0.78rem;color:rgba(148,163,184,0.7)">选择最符合你近两周情况的选项</span>
+          </div>
+          <div id="quizArea"></div>
+          <div class="ai-result"></div>
+        </div>
+
+        <!-- 呼吸放松 -->
+        <div class="ai-tool reveal">
+          <div class="ai-tool-head">
+            <span class="ai-tool-num">二</span>
+            <h3>呼吸放松引导</h3>
+          </div>
+          <p class="ai-tool-sub">4 秒吸气 · 4 秒呼气，跟随圆环节奏，每次 5-10 分钟即可有效平复交感神经。适合睡前、会前与焦虑来袭时。</p>
+
+          <div class="breath-box">
+            <div class="breath-circle-wrap" id="breathCircle">
+              <div class="breath-circle"></div>
+              <div class="breath-label" id="breathLabel">准备</div>
+            </div>
+            <div class="breath-count" id="breathCount"></div>
+            <div class="breath-steps">
+              <span class="breath-step">吸气 4 秒</span>
+              <span class="breath-step">呼气 4 秒</span>
+            </div>
+            <button type="button" class="ai-btn" id="breathBtn">开始呼吸引导</button>
+          </div>
+        </div>
+
+        <!-- 情绪日记 -->
+        <div class="ai-tool reveal">
+          <div class="ai-tool-head">
+            <span class="ai-tool-num">三</span>
+            <h3>情绪日记 · AI 分析</h3>
+          </div>
+          <p class="ai-tool-sub">写下此刻的心情（10 字以上），AI 将识别情绪关键词，统计积极与消极倾向，帮你把模糊的感受变成清晰的觉察。</p>
+
+          <textarea class="diary-area" id="diaryText" placeholder="例如：今天加班到很晚，虽然项目顺利推进让我有点成就感，但连续几天睡眠不足，整个人很疲惫，也有些焦虑下周的汇报……"></textarea>
+          <div style="text-align:right;margin-top:12px">
+            <button type="button" class="ai-btn" id="diaryBtn">分析我的情绪</button>
+          </div>
+          <div class="ai-result" id="diaryResult"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section-cta">
+      <div class="container reveal">
+        <h2>AI 觉察之后，需要专业陪伴</h2>
+        <p>自测只是开始。若压力持续影响生活，请让我们用专业的方法陪你走出来。</p>
+        <a href="contact.html?direction=psychology" class="btn btn-primary">预约心理咨询</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="assets/logo.svg" alt="古四信息咨询工作室">
+          </a>
+          <p>融合玄学、心理、财经三大领域，为你提供专业、可信赖的综合咨询与内容服务。</p>
+        </div>
+        <div>
+          <h4 class="footer-title">快速导航</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="services.html">服务介绍</a></li>
+            <li><a href="works.html">精选作品</a></li>
+            <li><a href="ai.html">AI 体验</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="contact.html">联系我们</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">服务项目</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#metaphysics">命理与塔罗</a></li>
+            <li><a href="services.html#psychology">心理咨询</a></li>
+            <li><a href="services.html#finance">财经分析</a></li>
+            <li><a href="contact.html">综合咨询</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">关注我们</h4>
+          <div class="social-links">
+            <a href="#" aria-label="微信"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 13a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm5 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M12 2C6.48 2 2 5.58 2 10c0 2.03.76 3.87 2 5.29V20l4.09-1.87c1.25.53 2.64.82 4.12.82.65 0 1.28-.06 1.89-.17L18 20v-3.5c1.69-1.43 2.8-3.52 2.8-5.88 0-3.31-3.36-6-7.5-6S5.8 5.31 5.8 8.5"/></svg></a>
+            <a href="#" aria-label="微博"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.98 20.89c-3.93.44-7.31-1.4-7.55-4.1-.24-2.7 2.73-5.34 6.66-5.78 3.93-.44 7.31 1.4 7.55 4.1.24 2.7-2.73 5.34-6.66 5.78zm7.84-11.36c-.32-.1-.54-.17-.37-.61.36-.92.4-1.72.01-2.29-1.03-1.48-3.85-1.4-7.1-.04 0 0-1.02.45-.76-.36.5-1.6.42-2.94-.35-3.72-1.74-1.77-6.39.07-10.38 4.1C-1.8 9.47-.12 13.54 3.9 15.68c4.62 2.42 10.52 2.42 14.84-.18 1.84-1.12 3.3-2.87 3.86-4.76.32-1.06-.28-1.57-.78-1.21z"/></svg></a>
+            <a href="#" aria-label="小红书"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 古四信息咨询室 版权所有</span>
+        <span class="footer-brand-badge" title="法舟盟 · 认知破局、深度决策">
+          <img src="assets/fazhoumeng.svg" alt="法舟盟 · 认知破局、深度决策">
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/ai.js"></script>
+</body>
+</html>
