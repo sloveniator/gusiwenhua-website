@@ -53,7 +53,7 @@ def send_email(payload: ContactIn) -> None:
     port = int(os.getenv("SMTP_PORT", "465"))
     user = os.getenv("SMTP_USER", "")
     pwd = os.getenv("SMTP_PASS", "")
-    to_addr = os.getenv("SMTP_TO", "contact@g4create.cn")
+    to_addr = os.getenv("SMTP_TO", "Slceleto@gmail.com")
     from_addr = os.getenv("SMTP_FROM", user or to_addr)
 
     direction_label = DIRECTION_MAP.get(payload.direction, payload.direction or "未选择")
