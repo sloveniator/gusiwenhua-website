@@ -629,8 +629,7 @@
       }
 
       if (valid) {
-        showSuccessToast();
-        form.reset();
+        submitContactForm(form);
       }
     });
 
@@ -680,6 +679,51 @@
     setTimeout(() => {
       toast.classList.remove('show');
     }, 3600);
+  }
+
+  // 提交咨询表单到后端 /api/contact（同源，由 nginx 反代到 FastAPI）
+  function submitContactForm(form) {
+    const btn = form.querySelector('button[type="submit"]');
+    const name = form.querySelector('[name="name"]').value.trim();
+    const contact = form.querySelector('[name="contact"]').value.trim();
+    const direction = form.querySelector('[name="direction"]').value;
+    const content = form.querySelector('[name="content"]').value.trim();
+    if (btn) btn.disabled = true;
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, contact: contact, direction: direction, content: content })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.ok) {
+          showSuccessToast();
+          form.reset();
+        } else {
+          showErrorToast((d && d.error) ? d.error : '提交失败，请稍后重试');
+        }
+      })
+      .catch(function () {
+        showErrorToast('网络异常，请稍后重试，或直接发邮件至 Slceleto@gmail.com');
+      })
+      .finally(function () { if (btn) btn.disabled = false; });
+  }
+
+  // 错误提示（红色 toast）
+  function showErrorToast(message) {
+    let toast = document.querySelector('.error-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'error-toast';
+      toast.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.86l-8.06 14a2 2 0 001.73 3h16.06a2 2 0 001.73-3l-8.06-14a2 2 0 00-3.46 0z" /></svg>' +
+        '<div><strong>提交失败</strong><div style="font-size:0.85rem;color:var(--color-text-muted);"></div></div>';
+      document.body.appendChild(toast);
+    }
+    const txt = toast.querySelector('div div');
+    if (txt) txt.textContent = message;
+    requestAnimationFrame(function () { toast.classList.add('show'); });
+    setTimeout(function () { toast.classList.remove('show'); }, 4200);
   }
 
   // Auto-select direction from URL ?direction=xxx

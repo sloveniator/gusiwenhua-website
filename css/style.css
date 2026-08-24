@@ -882,6 +882,36 @@ textarea.form-control {
   color: var(--color-primary-light);
 }
 
+/* 错误提示 toast（联系表单提交失败） */
+.error-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: var(--color-bg-card);
+  border: 1px solid #e5484d;
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(120%);
+  opacity: 0;
+  transition: transform var(--transition), opacity var(--transition);
+  z-index: 9999;
+  max-width: 360px;
+}
+.error-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.error-toast svg {
+  width: 24px;
+  height: 24px;
+  color: #e5484d;
+  flex-shrink: 0;
+}
+
 /* Footer */
 .footer {
   background: #070a12;

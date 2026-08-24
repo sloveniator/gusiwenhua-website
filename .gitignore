@@ -6,6 +6,10 @@ node_modules/
 # 调试截图
 debug_*.png
 
+# 环境变量 / 密钥（.env.example 模板保留提交）
+.env
+backend/.env
+
 # 系统文件
 .DS_Store
 Thumbs.db
