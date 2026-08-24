@@ -1,6 +1,6 @@
 """古四文化咨询工作室 - 联系表单后端
 
-接收前端 POST /api/contact，服务端校验后用 SMTP 把咨询内容发到企业微信邮箱。
+接收前端 POST /api/contact，服务端校验后用 SMTP 把咨询内容发到配置的接收邮箱。
 SMTP 凭证通过环境变量注入（docker-compose env_file: ./backend/.env），不入库、不进镜像。
 """
 import os
@@ -49,7 +49,7 @@ def _is_valid_contact(value: str) -> bool:
 
 
 def send_email(payload: ContactIn) -> None:
-    host = os.getenv("SMTP_HOST", "smtp.exmail.qq.com")
+    host = os.getenv("SMTP_HOST", "smtp.139.com")
     port = int(os.getenv("SMTP_PORT", "465"))
     user = os.getenv("SMTP_USER", "")
     pwd = os.getenv("SMTP_PASS", "")
