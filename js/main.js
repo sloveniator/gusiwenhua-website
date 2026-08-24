@@ -13,7 +13,7 @@
     qrcode: '',
     // 服务时间
     aiHours: '7×24 小时',
-    humanHours: '工作日 9:00 - 21:00',
+    humanHours: '周一至周六 10:00 - 20:00',
     reply: '通常 5 分钟内回复'
   };
   var KF_CONFIGURED = KF_CONFIG.url.indexOf('REPLACE_WITH_YOUR_KFID') === -1;
