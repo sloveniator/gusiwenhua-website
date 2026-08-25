@@ -39,12 +39,12 @@ if [ -d .git ]; then
   git pull --ff-only 2>/dev/null || echo "（git pull 跳过/失败，使用本地代码继续）"
 fi
 
-# 5) 构建并启动双容器（web:8080 + backend:8000）
+# 5) 构建并启动双容器（web:16783 + backend:8000）
 echo "--- 构建并启动容器 ---"
 docker compose up -d --build
 
 # 6) 等待后端就绪并健康检查
-#    注意：直接探 backend 容器真实 /health 接口，不要探 8080/health —— 后者会被
+#    注意：直接探 backend 容器真实 /health 接口，不要探 16783/health —— 后者会被
 #    nginx 的 try_files 静态兜底返回首页 HTML（永远 200），造成“假健康”。
 echo "--- 等待服务就绪 ---"
 for i in $(seq 1 15); do
@@ -56,7 +56,7 @@ done
 
 if docker compose exec -T backend python -c "import urllib.request,sys; sys.exit(0 if b'\"ok\":true' in urllib.request.urlopen('http://127.0.0.1:8000/health').read() else 1)" >/dev/null 2>&1; then
   echo "✅ 部署成功！后端 /health 正常，站点可访问："
-  echo "   访问： http://<服务器IP>:8080"
+  echo "   访问： http://<服务器IP>:16783"
   echo "   查看日志： docker compose logs -f"
   echo "   更新： bash deploy.sh   （会自动 git pull 后重建）"
 else

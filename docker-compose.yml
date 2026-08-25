@@ -14,7 +14,7 @@ services:
     image: gusiwenhua-web:latest
     container_name: gusiwenhua-web
     ports:
-      - "8080:80"
+      - "16783:80"
     depends_on:
       - backend
     restart: unless-stopped
