@@ -6,6 +6,7 @@ SMTP 凭证通过环境变量注入（docker-compose env_file: ./backend/.env）
 import os
 import re
 import smtplib
+import socket
 import ssl
 
 from dotenv import load_dotenv
@@ -49,12 +50,19 @@ def _is_valid_contact(value: str) -> bool:
 
 
 def send_email(payload: ContactIn) -> None:
-    host = os.getenv("SMTP_HOST", "smtp.139.com")
-    port = int(os.getenv("SMTP_PORT", "465"))
-    user = os.getenv("SMTP_USER", "")
+    host = os.getenv("SMTP_HOST", "smtp.163.com")
+    port = int(os.getenv("SMTP_PORT", "25"))
+    user = os.getenv("SMTP_USER", "Slceleto@163.com")
     pwd = os.getenv("SMTP_PASS", "")
     to_addr = os.getenv("SMTP_TO", "Slceleto@gmail.com")
     from_addr = os.getenv("SMTP_FROM", user or to_addr)
+
+    # 强制 IPv4 解析：Docker 容器默认仅有 IPv4 网络栈，
+    # 部分邮箱域名会优先返回 IPv6，导致连接超时 / 网络不可达
+    try:
+        ip = socket.getaddrinfo(host, port, socket.AF_INET, socket.SOCK_STREAM)[0][4][0]
+    except Exception:
+        ip = host
 
     direction_label = DIRECTION_MAP.get(payload.direction, payload.direction or "未选择")
     subject = f"[古四咨询] 新咨询来自 {payload.name}"
@@ -69,14 +77,17 @@ def send_email(payload: ContactIn) -> None:
     msg["From"] = from_addr
     msg["To"] = to_addr
 
-    if port == 465:
-        with smtplib.SMTP_SSL(host, port, timeout=15) as server:
+    if port in (465, 994):
+        with smtplib.SMTP_SSL(ip, port, timeout=15) as server:
             server.login(user, pwd)
             server.sendmail(from_addr, [to_addr], msg.as_string())
     else:
         context = ssl.create_default_context()
-        with smtplib.SMTP(host, port, timeout=15) as server:
-            server.starttls(context=context)
+        with smtplib.SMTP(ip, port, timeout=15) as server:
+            server.ehlo()
+            if server.has_extn("starttls"):
+                server.starttls(context=context)
+                server.ehlo()
             server.login(user, pwd)
             server.sendmail(from_addr, [to_addr], msg.as_string())
 
