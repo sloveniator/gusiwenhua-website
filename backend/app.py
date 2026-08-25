@@ -78,13 +78,18 @@ def send_email(payload: ContactIn) -> None:
     msg["To"] = to_addr
 
     if port in (465, 994):
-        with smtplib.SMTP_SSL(ip, port, timeout=15) as server:
+        # 465/994 提交端口：SSL 直连（用域名校验证书，证书对域名有效）
+        with smtplib.SMTP_SSL(host, port, timeout=15) as server:
             server.login(user, pwd)
             server.sendmail(from_addr, [to_addr], msg.as_string())
     else:
+        # 25/587 等明文端口：用 IPv4 地址建立 TCP 连接（避开 IPv6 黑洞），
+        # 但 STARTTLS 证书校验需针对域名，故连接后把校验主机名改回域名
         context = ssl.create_default_context()
-        with smtplib.SMTP(ip, port, timeout=15) as server:
+        with smtplib.SMTP(timeout=15) as server:
+            server.connect(ip, port)
             server.ehlo()
+            server._host = host
             if server.has_extn("starttls"):
                 server.starttls(context=context)
                 server.ehlo()
