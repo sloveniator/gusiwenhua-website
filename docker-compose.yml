@@ -14,7 +14,11 @@ services:
     image: gusiwenhua-web:latest
     container_name: gusiwenhua-web
     ports:
-      - "443:80"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/etc/nginx/certs:ro
+      - ./acme-webroot:/var/www/acme:ro
     depends_on:
       - backend
     restart: unless-stopped

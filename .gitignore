@@ -10,6 +10,11 @@ debug_*.png
 .env
 backend/.env
 
+# TLS 证书与私钥（本地生成，绝不入库）
+certs/
+letsencrypt/
+acme-webroot/
+
 # 系统文件
 .DS_Store
 Thumbs.db
