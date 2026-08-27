@@ -286,6 +286,10 @@ img {
 .hero-content {
   position: relative;
   z-index: 1;
+  /* 关键：flex 子项默认 min-width:auto，内容（hero-stats 等）过宽时会撑破视口再被
+     overflow-x:hidden 裁掉；min-width:0 + width:100% 让它随视口收缩、内容自行换行 */
+  min-width: 0;
+  width: 100%;
   padding: 0 20px;
   max-width: 880px;
 }
@@ -3011,5 +3015,191 @@ textarea.form-control {
     bottom: 84px;
     width: calc(100vw - 32px);
     max-width: 340px;
+  }
+}
+
+/* ============ 小屏手机适配（≤480px） ============ */
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
+  }
+
+  .section {
+    padding: 56px 0;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 36px;
+  }
+
+  .page-header {
+    padding: 132px 0 56px;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+  }
+
+  .page-header p {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.92rem;
+  }
+
+  /* 首屏 Hero：收紧字号、按钮全宽、数据亮点 2×2 换行 */
+  .hero-content {
+    padding: 0 16px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.28;
+  }
+
+  .hero-subtitle {
+    font-size: 0.98rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+  }
+
+  .hero-actions {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-stats {
+    gap: 20px 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    min-width: 0;
+    flex: 1 1 40%;
+  }
+
+  .hero-stat:not(:last-child)::after {
+    display: none;
+  }
+
+  .hero-stat strong {
+    font-size: 1.75rem;
+  }
+
+  .hero-stat span {
+    font-size: 0.78rem;
+  }
+
+  /* 卡片与区块 */
+  .service-card {
+    padding: 28px 20px;
+  }
+
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 18px;
+  }
+
+  .service-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .service-card h3 {
+    font-size: 1.18rem;
+  }
+
+  .work-thumb {
+    height: 200px;
+  }
+
+  .work-overlay {
+    padding: 18px;
+  }
+
+  .work-title {
+    font-size: 1.05rem;
+  }
+
+  .team-info {
+    padding: 16px 12px;
+  }
+
+  .works-filter {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 7px 15px;
+    font-size: 0.85rem;
+  }
+
+  .footer-grid {
+    gap: 28px;
+  }
+
+  /* AI 体验模块 */
+  .ai-hero h1 {
+    font-size: 1.55rem;
+  }
+
+  .ai-tool {
+    padding: 18px 14px;
+  }
+
+  .ai-btn {
+    width: 100%;
+  }
+
+  .wuxing-item .wuxing-name {
+    font-size: 0.74rem;
+  }
+
+  .tarot-slot {
+    width: 96px;
+    height: 158px;
+  }
+
+  .tarot-stage {
+    gap: 12px;
+  }
+
+  .story-section {
+    gap: 28px;
+  }
+}
+
+/* 超小屏（≤360px） */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-stat strong {
+    font-size: 1.6rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-actions {
+    max-width: 280px;
   }
 }
