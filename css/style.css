@@ -2797,6 +2797,9 @@ textarea.form-control {
   flex-direction: column;
   align-items: flex-end;
   gap: 14px;
+  /* 默认鼠标穿透：隐藏面板仍占位 340×441，会盖住右下角内容（如团队第 4 人）的 hover；
+     按钮与展开的面板单独恢复 pointer-events: auto */
+  pointer-events: none;
 }
 
 .kf-float-btn {
@@ -2806,6 +2809,7 @@ textarea.form-control {
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2843,6 +2847,7 @@ textarea.form-control {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(13, 148, 136, 0.1);
   overflow: hidden;
   opacity: 0;
+  pointer-events: auto;
   transform: translateY(16px) scale(0.96);
   transform-origin: bottom right;
   visibility: hidden;
