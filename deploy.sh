@@ -39,24 +39,10 @@ if [ -d .git ]; then
   git pull --ff-only 2>/dev/null || echo "（git pull 跳过/失败，使用本地代码继续）"
 fi
 
-# 5) 证书检查：443 需要 fullchain.pem/privkey.pem（挂载自 ./certs，不入库）
-#    优先用 Let's Encrypt（certbot 生成到 ./certs）；缺失时生成本地自签兜底，保证 https 可访问
-CERT_DIR="${CERT_DIR:-./certs}"
-if [ ! -f "$CERT_DIR/fullchain.pem" ] || [ ! -f "$CERT_DIR/privkey.pem" ]; then
-  mkdir -p "$CERT_DIR"
-  echo "⚠ 未检测到 TLS 证书（$CERT_DIR/fullchain.pem），生成自签测试证书…"
-  openssl req -x509 -nodes -newkey rsa:2048 -days 825 \
-    -keyout "$CERT_DIR/privkey.pem" \
-    -out "$CERT_DIR/fullchain.pem" \
-    -subj "/CN=slceleto.qzz.io" >/dev/null 2>&1 || {
-      echo "✗ openssl 生成证书失败";
-      exit 1;
-    }
-  echo "   已生成自签证书（有效期 825 天）。如需正式可信证书（Let's Encrypt），"
-  echo "   请绑定域名后： bash issue-cert.sh"
-fi
+# 5) 公网入口由宿主机 Lucky 反向代理接管（80/443 + ACME 证书），
+#    本栈只提供纯 HTTP 内部服务，无需任何证书。
 
-# 5b) 构建并启动双容器（web:80+443 + backend:8000）
+# 5b) 构建并启动双容器（web 映射 127.0.0.1:16783 → 容器 80，backend 不对外）
 echo "--- 构建并启动容器 ---"
 docker compose up -d --build
 
@@ -72,10 +58,9 @@ for i in $(seq 1 15); do
 done
 
 if docker compose exec -T backend python -c "import urllib.request,sys; sys.exit(0 if b'\"ok\":true' in urllib.request.urlopen('http://127.0.0.1:8000/health').read() else 1)" >/dev/null 2>&1; then
-  echo "✅ 部署成功！后端 /health 正常，站点可访问："
-  echo "   HTTP ： http://<服务器IP>"
-  echo "   HTTPS： https://<服务器IP>   （部署了正式证书后浏览器无警告）"
-  echo "   域名 ： https://slceleto.qzz.io   （DNS 指向本机且签发证书后生效）"
+  echo "✅ 部署成功！后端 /health 正常，站点就绪："
+  echo "   内网验证： curl -I http://127.0.0.1:16783"
+  echo "   公网入口： https://slceleto.qzz.io   （由宿主机 Lucky 反代 80/443 提供）"
   echo "   查看日志： docker compose logs -f"
   echo "   更新： bash deploy.sh   （会自动 git pull 后重建）"
 else
