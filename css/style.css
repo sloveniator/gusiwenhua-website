@@ -795,27 +795,37 @@ select.form-control {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  /* 深色实底让下拉框本体清晰可见（原 4% 透明白近乎隐形）；color-scheme 显式声明，
+     让 iOS/Android 原生下拉弹层跟随深色主题，避免白底白字看不清 */
+  background-color: #0f1826;
+  color-scheme: dark;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23b2c4d6' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
   padding-right: 44px;
   cursor: pointer;
   color: #e5e7eb;
+  -webkit-text-fill-color: currentColor;
+  border-color: rgba(148, 163, 184, 0.3);
 }
 
+/* 空占位项保持灰色提示（否则默认选中的占位项命中 option:checked 白色，误以为已选择） */
 select.form-control:invalid,
-select.form-control option[value=""] {
+select.form-control option[value=""]:checked {
   color: rgba(176, 190, 209, 0.7);
+  -webkit-text-fill-color: rgba(176, 190, 209, 0.7);
 }
 
 select.form-control option {
   background-color: #0f1826;
   color: #e5e7eb;
+  -webkit-text-fill-color: currentColor;
 }
 
 select.form-control option:checked {
   background-color: rgba(13, 148, 136, 0.4);
   color: #fff;
+  -webkit-text-fill-color: currentColor;
 }
 
 textarea.form-control {
@@ -2103,11 +2113,16 @@ textarea.form-control {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  /* 与 select.form-control 同步：深色实底 + 显式 color-scheme，原生弹层深色可读 */
+  background-color: #0f1826;
+  color-scheme: dark;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23b2c4d6' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 40px;
   cursor: pointer;
+  -webkit-text-fill-color: currentColor;
+  border-color: rgba(148, 163, 184, 0.3);
 }
 
 .ai-input:focus,
@@ -2120,11 +2135,13 @@ textarea.form-control {
 .ai-select option {
   background-color: #0f1826;
   color: #e2e8f0;
+  -webkit-text-fill-color: currentColor;
 }
 
 .ai-select option:checked {
   background-color: rgba(13, 148, 136, 0.45);
   color: #fff;
+  -webkit-text-fill-color: currentColor;
 }
 
 .ai-btn {
