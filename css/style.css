@@ -338,8 +338,10 @@ img {
 .scroll-hint {
   position: absolute;
   bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  /* 居中不用 transform（left:50%+translateX(-50%)），
+     否则会被 fadeInUp 动画 forwards 最终态覆盖导致偏右 */
   display: flex;
   flex-direction: column;
   align-items: center;
